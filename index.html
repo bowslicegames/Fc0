@@ -23,6 +23,8 @@
             <span class="score-name" id="score-team">ULTIMATE XI</span>
           </div>
           <div class="score-value" id="score-value">0</div>
+          <span class="score-dash">–</span>
+          <div class="score-value away" id="score-away">0</div>
           <div class="score-label">Goals</div>
         </div>
       </header>
@@ -36,6 +38,7 @@
           <div class="row"><span class="keys"><kbd>Shift</kbd></span><span>Sprint</span></div>
           <div class="row"><span class="keys"><kbd>Space</kbd></span><span>Shoot</span></div>
           <div class="row"><span class="keys"><kbd>Q</kbd></span><span>Switch player</span></div>
+          <div class="row"><span class="keys"><kbd>E</kbd></span><span>Pass</span></div>
           <div class="row"><span class="keys"><kbd>Mouse</kbd></span><span>Camera</span></div>
         </div>
       </div>
@@ -64,9 +67,12 @@
         </div>
       </div>
       <div class="action-pad">
-        <button class="touch-btn switch" id="btn-switch" type="button">Switch</button>
         <div class="action-row">
+          <button class="touch-btn switch" id="btn-switch" type="button">Switch</button>
           <button class="touch-btn sprint" id="btn-sprint" type="button">Sprint</button>
+        </div>
+        <div class="action-row">
+          <button class="touch-btn pass" id="btn-pass" type="button">Pass</button>
           <button class="touch-btn shoot" id="btn-shoot" type="button">Shoot</button>
         </div>
       </div>
@@ -85,7 +91,7 @@
       </div>
     </div>
 
-    <div id="goal-flash"><span>GOAL</span></div>
+    <div id="goal-flash"><span id="flash-text">GOAL</span></div>
 
     <div id="loading">
       <div class="loader-ring"></div>

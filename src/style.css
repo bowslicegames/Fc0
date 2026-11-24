@@ -113,6 +113,17 @@ body {
   opacity: 0.85;
 }
 
+.score-dash {
+  font-size: 16px;
+  font-weight: 900;
+  opacity: 0.35;
+  margin: 0 -6px;
+}
+
+.score-value.away {
+  color: #ff9a86;
+}
+
 .score-value {
   font-size: 26px;
   font-weight: 900;
@@ -526,6 +537,13 @@ body.touch .hud-left {
   color: var(--accent-2);
 }
 
+.touch-btn.pass {
+  width: 68px;
+  height: 68px;
+  font-size: 9px;
+  border-color: rgba(216, 255, 62, 0.45);
+}
+
 .touch-btn.held {
   transform: scale(0.93);
 }
@@ -652,6 +670,11 @@ body.touch .hud-left {
   .touch-btn.switch {
     width: 52px;
     height: 52px;
+  }
+
+  .touch-btn.pass {
+    width: 58px;
+    height: 58px;
   }
 
   .hud-right {

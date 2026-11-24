@@ -14,6 +14,7 @@ export class TouchControls {
   private readonly shootBtn: HTMLElement;
   private readonly sprintBtn: HTMLElement;
   private readonly switchBtn: HTMLElement;
+  private readonly passBtn: HTMLElement;
   private stickPointer: number | null = null;
   private originX = 0;
   private originY = 0;
@@ -24,6 +25,7 @@ export class TouchControls {
     this.shootBtn = document.getElementById('btn-shoot')!;
     this.sprintBtn = document.getElementById('btn-sprint')!;
     this.switchBtn = document.getElementById('btn-switch')!;
+    this.passBtn = document.getElementById('btn-pass')!;
 
     this.zone.addEventListener('pointerdown', this.onStickDown);
     this.zone.addEventListener('pointermove', this.onStickMove);
@@ -34,6 +36,7 @@ export class TouchControls {
     this.bindHold(this.sprintBtn, 'ShiftLeft');
     this.bindHold(this.shootBtn, 'Space');
     this.bindTap(this.switchBtn, 'KeyQ');
+    this.bindTap(this.passBtn, 'KeyE');
   }
 
   /** A tap is queued as a key press that lasts exactly one frame. */
