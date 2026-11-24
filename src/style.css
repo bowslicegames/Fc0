@@ -474,9 +474,16 @@ body.touch .hud-left {
   right: max(16px, env(safe-area-inset-right));
   bottom: max(20px, env(safe-area-inset-bottom));
   display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.action-row {
+  display: flex;
   align-items: flex-end;
   gap: 12px;
-  pointer-events: none;
 }
 
 .touch-btn {
@@ -508,6 +515,15 @@ body.touch .hud-left {
   height: 68px;
   font-size: 9px;
   opacity: 0.92;
+}
+
+.touch-btn.switch {
+  width: 62px;
+  height: 62px;
+  font-size: 9px;
+  background: rgba(6, 12, 16, 0.64);
+  border-color: rgba(76, 224, 255, 0.42);
+  color: var(--accent-2);
 }
 
 .touch-btn.held {
@@ -633,7 +649,190 @@ body.touch .hud-left {
     height: 58px;
   }
 
+  .touch-btn.switch {
+    width: 52px;
+    height: 52px;
+  }
+
   .hud-right {
     width: 148px;
+  }
+}
+
+/* ---------- Club selection ---------- */
+.clubs-btn {
+  position: absolute;
+  right: 26px;
+  top: 84px;
+  pointer-events: auto;
+  padding: 7px 14px;
+  border-radius: 99px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  opacity: 0.82;
+  cursor: pointer;
+}
+
+.clubs-btn:hover {
+  opacity: 1;
+}
+
+.team-select {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right))
+    max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+  background: radial-gradient(circle at 50% 28%, rgba(20, 48, 36, 0.94), rgba(4, 8, 10, 0.97) 72%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow-y: auto;
+}
+
+.team-select.open {
+  display: flex;
+}
+
+.team-panel {
+  width: min(680px, 100%);
+  margin: auto;
+}
+
+.team-kicker {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-bottom: 10px;
+}
+
+.team-title {
+  margin: 0 0 8px;
+  font-size: clamp(26px, 6vw, 42px);
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: 0.01em;
+}
+
+.team-sub {
+  margin: 0 0 18px;
+  max-width: 48ch;
+  font-size: 12px;
+  line-height: 1.55;
+  opacity: 0.66;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.team-card {
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: 2px 12px;
+  padding: 14px;
+  text-align: left;
+  font-family: inherit;
+  color: var(--ink);
+  background: rgba(8, 16, 20, 0.66);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: border-color 140ms ease, background-color 140ms ease, transform 140ms ease;
+}
+
+.team-card:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.team-card.selected {
+  border-color: var(--accent);
+  background: rgba(216, 255, 62, 0.1);
+  box-shadow: 0 0 0 1px var(--accent), 0 16px 34px rgba(0, 0, 0, 0.4);
+}
+
+.team-crest {
+  grid-row: span 2;
+  width: 38px;
+  height: 44px;
+  border-radius: 7px 7px 15px 15px;
+  background: linear-gradient(150deg, var(--shirt), var(--trim));
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.team-name {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.team-meta {
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+.team-kit {
+  grid-column: 2;
+  display: flex;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.team-kit i {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.kickoff-btn {
+  margin-top: 16px;
+  width: 100%;
+  padding: 15px;
+  border: 0;
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #10160a;
+  background: linear-gradient(120deg, #f2ffcb, #d8ff3e 55%, #a3cc22);
+  box-shadow: 0 18px 38px rgba(140, 190, 20, 0.32);
+  cursor: pointer;
+}
+
+.kickoff-btn:active {
+  transform: scale(0.99);
+}
+
+@media (max-width: 900px), (pointer: coarse) {
+  .clubs-btn {
+    right: max(14px, env(safe-area-inset-right));
+    top: calc(max(12px, env(safe-area-inset-top)) + 56px);
+  }
+}
+
+@media (max-width: 430px) {
+  .team-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

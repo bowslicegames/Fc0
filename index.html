@@ -19,13 +19,15 @@
         </div>
         <div class="scoreboard">
           <div class="score-team">
-            <span class="crest"></span>
-            <span class="score-name">HOME</span>
+            <span class="crest" id="score-crest"></span>
+            <span class="score-name" id="score-team">ULTIMATE XI</span>
           </div>
           <div class="score-value" id="score-value">0</div>
           <div class="score-label">Goals</div>
         </div>
       </header>
+
+      <button class="clubs-btn" id="open-teams" type="button">Clubs</button>
 
       <div class="hud-left">
         <div class="card controls">
@@ -33,6 +35,7 @@
           <div class="row"><span class="keys"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span><span>Move</span></div>
           <div class="row"><span class="keys"><kbd>Shift</kbd></span><span>Sprint</span></div>
           <div class="row"><span class="keys"><kbd>Space</kbd></span><span>Shoot</span></div>
+          <div class="row"><span class="keys"><kbd>Q</kbd></span><span>Switch player</span></div>
           <div class="row"><span class="keys"><kbd>Mouse</kbd></span><span>Camera</span></div>
         </div>
       </div>
@@ -61,8 +64,24 @@
         </div>
       </div>
       <div class="action-pad">
-        <button class="touch-btn sprint" id="btn-sprint" type="button">Sprint</button>
-        <button class="touch-btn shoot" id="btn-shoot" type="button">Shoot</button>
+        <button class="touch-btn switch" id="btn-switch" type="button">Switch</button>
+        <div class="action-row">
+          <button class="touch-btn sprint" id="btn-sprint" type="button">Sprint</button>
+          <button class="touch-btn shoot" id="btn-shoot" type="button">Shoot</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="team-select" class="team-select open">
+      <div class="team-panel">
+        <div class="team-kicker">Ultimate XI · Training Ground</div>
+        <h1 class="team-title">Choose your club</h1>
+        <p class="team-sub">
+          Pick a squad, then take control of any of its five players. Your team-mates chase loose balls and
+          pass back to you, so switching players is the fastest way to keep the move alive.
+        </p>
+        <div class="team-grid" id="team-grid"></div>
+        <button class="kickoff-btn" id="kickoff" type="button">Kick off</button>
       </div>
     </div>
 

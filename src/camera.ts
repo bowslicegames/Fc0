@@ -88,4 +88,13 @@ export class CameraRig {
     this.framing = framingFor(aspect);
     this.camera.updateProjectionMatrix();
   }
+
+  /** Cut straight to a new player after a switch instead of flying across the pitch. */
+  snap(target: THREE.Vector3, heading: number) {
+    this.followYaw = heading;
+    this.manualYaw = 0;
+    this.manualPitch = 0;
+    this.initialised = false;
+    this.smoothLook.copy(target);
+  }
 }

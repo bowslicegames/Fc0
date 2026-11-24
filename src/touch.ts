@@ -13,6 +13,7 @@ export class TouchControls {
   private readonly knob: HTMLElement;
   private readonly shootBtn: HTMLElement;
   private readonly sprintBtn: HTMLElement;
+  private readonly switchBtn: HTMLElement;
   private stickPointer: number | null = null;
   private originX = 0;
   private originY = 0;
@@ -22,6 +23,7 @@ export class TouchControls {
     this.knob = document.getElementById('stick-knob')!;
     this.shootBtn = document.getElementById('btn-shoot')!;
     this.sprintBtn = document.getElementById('btn-sprint')!;
+    this.switchBtn = document.getElementById('btn-switch')!;
 
     this.zone.addEventListener('pointerdown', this.onStickDown);
     this.zone.addEventListener('pointermove', this.onStickMove);
@@ -31,6 +33,19 @@ export class TouchControls {
 
     this.bindHold(this.sprintBtn, 'ShiftLeft');
     this.bindHold(this.shootBtn, 'Space');
+    this.bindTap(this.switchBtn, 'KeyQ');
+  }
+
+  /** A tap is queued as a key press that lasts exactly one frame. */
+  private bindTap(el: HTMLElement, code: string) {
+    el.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      this.input.setVirtual(code, true);
+      this.input.setVirtual(code, false);
+      el.classList.add('held');
+      window.setTimeout(() => el.classList.remove('held'), 120);
+    });
+    el.addEventListener('contextmenu', (e) => e.preventDefault());
   }
 
   private onStickDown = (e: PointerEvent) => {

@@ -1,3 +1,13 @@
+/** Some environments omit KeyboardEvent.code, so derive it from the key. */
+function normalizeCode(e: KeyboardEvent) {
+  if (e.code) return e.code;
+  const key = e.key;
+  if (key === ' ') return 'Space';
+  if (key === 'Shift') return 'ShiftLeft';
+  if (key.length === 1) return `Key${key.toUpperCase()}`;
+  return key;
+}
+
 export class Input {
   private readonly down = new Set<string>();
   private readonly pressed = new Set<string>();
@@ -12,11 +22,12 @@ export class Input {
 
   constructor(el: HTMLElement) {
     window.addEventListener('keydown', (e) => {
-      if (['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code)) e.preventDefault();
-      if (!this.down.has(e.code)) this.pressed.add(e.code);
-      this.down.add(e.code);
+      const code = normalizeCode(e);
+      if (['Space', 'Tab', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(code)) e.preventDefault();
+      if (!this.down.has(code)) this.pressed.add(code);
+      this.down.add(code);
     });
-    window.addEventListener('keyup', (e) => this.down.delete(e.code));
+    window.addEventListener('keyup', (e) => this.down.delete(normalizeCode(e)));
     window.addEventListener('blur', () => this.down.clear());
 
     el.addEventListener('pointerdown', (e) => {
