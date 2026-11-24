@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Ultimate XI — Training Ground</title>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <div class="hud">
+      <header class="hud-top">
+        <div class="brand">
+          <span class="brand-mark">ULTIMATE<span>XI</span></span>
+          <span class="brand-sub">Training Ground</span>
+        </div>
+        <div class="scoreboard">
+          <div class="score-team">
+            <span class="crest"></span>
+            <span class="score-name">HOME</span>
+          </div>
+          <div class="score-value" id="score-value">0</div>
+          <div class="score-label">Goals</div>
+        </div>
+      </header>
+
+      <div class="hud-left">
+        <div class="card controls">
+          <div class="card-title">Controls</div>
+          <div class="row"><span class="keys"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span><span>Move</span></div>
+          <div class="row"><span class="keys"><kbd>Shift</kbd></span><span>Sprint</span></div>
+          <div class="row"><span class="keys"><kbd>Space</kbd></span><span>Shoot</span></div>
+          <div class="row"><span class="keys"><kbd>Mouse</kbd></span><span>Camera</span></div>
+        </div>
+      </div>
+
+      <div class="hud-right">
+        <div class="card stats">
+          <div class="stat-head"><span id="player-name">VEGA</span><span id="player-num">10</span></div>
+          <div class="stat">
+            <div class="stat-row"><span>Pace</span><span id="speed-value">0.0 <em>km/h</em></span></div>
+            <div class="bar"><div class="bar-fill pace" id="speed-fill"></div></div>
+          </div>
+          <div class="stat">
+            <div class="stat-row"><span>Stamina</span><span id="stamina-value">100</span></div>
+            <div class="bar"><div class="bar-fill stamina" id="stamina-fill"></div></div>
+          </div>
+          <div class="stat-chip" id="state-chip">READY</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="goal-flash"><span>GOAL</span></div>
+
+    <div id="loading">
+      <div class="loader-ring"></div>
+      <div class="loader-main">ULTIMATE XI</div>
+      <div class="loader-sub">Preparing the training ground…</div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
