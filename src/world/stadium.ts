@@ -290,14 +290,14 @@ function buildFloodlights(scene: THREE.Scene) {
 
 /* ------------------------------ lighting ------------------------------ */
 
-export function setupLighting(scene: THREE.Scene) {
+export function setupLighting(scene: THREE.Scene, shadowSize = 2048) {
   const hemi = new THREE.HemisphereLight(0xd6ecff, 0x2b4020, 1.15);
   scene.add(hemi);
 
   const sun = new THREE.DirectionalLight(0xfff4dd, 2.9);
   sun.position.set(46, 66, 28);
   sun.castShadow = true;
-  sun.shadow.mapSize.set(2048, 2048);
+  sun.shadow.mapSize.set(shadowSize, shadowSize);
   sun.shadow.camera.left = -64;
   sun.shadow.camera.right = 64;
   sun.shadow.camera.top = 52;
@@ -317,9 +317,9 @@ export function setupLighting(scene: THREE.Scene) {
   scene.add(warm);
 }
 
-export function buildStadium(scene: THREE.Scene) {
+export function buildStadium(scene: THREE.Scene, shadowSize = 2048) {
   buildSky(scene);
-  setupLighting(scene);
+  setupLighting(scene, shadowSize);
 
   // local +Z points away from the pitch for every stand
   buildStand(scene, 102, new THREE.Vector3(0, 0, -37), Math.PI);

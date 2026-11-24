@@ -122,7 +122,7 @@ function buildCornerFlag(x: number, z: number) {
   return g;
 }
 
-export function buildPitch(scene: THREE.Scene) {
+export function buildPitch(scene: THREE.Scene, bladeCount = 32000) {
   const root = new THREE.Group();
 
   // Surround / run-off area
@@ -197,7 +197,7 @@ export function buildPitch(scene: THREE.Scene) {
     side: THREE.DoubleSide,
   });
 
-  const count = 32000;
+  const count = bladeCount;
   const blades = new THREE.InstancedMesh(bladeGeo, bladeMat, count);
   blades.receiveShadow = true;
   blades.castShadow = false;

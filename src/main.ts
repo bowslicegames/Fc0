@@ -6,6 +6,7 @@ import { buildPitch } from './world/pitch';
 import { Footballer, type KitConfig, type MotionState } from './entities/footballer';
 import { Ball } from './entities/ball';
 import { Input } from './input';
+import { TouchControls } from './touch';
 import { CameraRig } from './camera';
 
 const RUN_SPEED = 5.5;
@@ -13,14 +14,20 @@ const SPRINT_SPEED = 8.9;
 const FIELD_X = 52.2;
 const FIELD_Z = 33.8;
 
+/* ----------------------------- device tier ----------------------------- */
+
+const isTouch = window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
+const PIXEL_CAP = isTouch ? 1.6 : 2;
+document.body.classList.toggle('touch', isTouch);
+
 /* ----------------------------- renderer ----------------------------- */
 
 const container = document.getElementById('app')!;
 const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, PIXEL_CAP));
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.shadowMap.type = isTouch ? THREE.PCFShadowMap : THREE.PCFSoftShadowMap;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.02;
 renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -33,9 +40,10 @@ pmrem.dispose();
 
 const rig = new CameraRig(window.innerWidth / window.innerHeight);
 const input = new Input(renderer.domElement);
+new TouchControls(input);
 
-buildStadium(scene);
-buildPitch(scene);
+buildStadium(scene, isTouch ? 1024 : 2048);
+buildPitch(scene, isTouch ? 14000 : 32000);
 
 /* ----------------------------- squad ----------------------------- */
 
@@ -293,6 +301,14 @@ renderer.setAnimationLoop(() => {
 
 window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, PIXEL_CAP));
   rig.resize(window.innerWidth / window.innerHeight);
+});
+
+window.addEventListener('orientationchange', () => {
+  // iOS reports stale sizes immediately after a rotation
+  window.setTimeout(() => {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    rig.resize(window.innerWidth / window.innerHeight);
+  }, 250);
 });

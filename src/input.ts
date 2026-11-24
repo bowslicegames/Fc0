@@ -7,6 +7,8 @@ export class Input {
   private dragging = false;
   private lastX = 0;
   private lastY = 0;
+  private touchX = 0;
+  private touchY = 0;
 
   constructor(el: HTMLElement) {
     window.addEventListener('keydown', (e) => {
@@ -45,6 +47,22 @@ export class Input {
     );
   }
 
+  /** Virtual stick vector from the on-screen joystick, each axis within -1..1. */
+  setTouchAxis(x: number, y: number) {
+    this.touchX = x;
+    this.touchY = y;
+  }
+
+  /** Press or release a key from on-screen buttons (sprint, shoot). */
+  setVirtual(code: string, down: boolean) {
+    if (down) {
+      if (!this.down.has(code)) this.pressed.add(code);
+      this.down.add(code);
+    } else {
+      this.down.delete(code);
+    }
+  }
+
   isDown(code: string) {
     return this.down.has(code);
   }
@@ -54,8 +72,15 @@ export class Input {
   }
 
   axis() {
-    const x = (this.isDown('KeyD') || this.isDown('ArrowRight') ? 1 : 0) - (this.isDown('KeyA') || this.isDown('ArrowLeft') ? 1 : 0);
-    const y = (this.isDown('KeyW') || this.isDown('ArrowUp') ? 1 : 0) - (this.isDown('KeyS') || this.isDown('ArrowDown') ? 1 : 0);
+    const keyX = (this.isDown('KeyD') || this.isDown('ArrowRight') ? 1 : 0) - (this.isDown('KeyA') || this.isDown('ArrowLeft') ? 1 : 0);
+    const keyY = (this.isDown('KeyW') || this.isDown('ArrowUp') ? 1 : 0) - (this.isDown('KeyS') || this.isDown('ArrowDown') ? 1 : 0);
+    let x = keyX + this.touchX;
+    let y = keyY + this.touchY;
+    const len = Math.hypot(x, y);
+    if (len > 1) {
+      x /= len;
+      y /= len;
+    }
     return { x, y };
   }
 
